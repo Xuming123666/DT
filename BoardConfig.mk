@@ -54,12 +54,12 @@ TW_ALWAYS_ENABLE_ADB := true
 TW_ADB_INSECURE := true  # ✅ 新增：TWRP 11专属，彻底禁用ADB授权验证
 
 # 系统属性（修复persist前缀不生效问题）
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.adb.secure=0 \
-    ro.secure=0 \
-    ro.debuggable=1 \
-    service.adb.enable=1 \
-    sys.usb.config=adb,mtp
+# PRODUCT_PROPERTY_OVERRIDES += \
+#    ro.adb.secure=0 \
+#    ro.secure=0 \
+#    ro.debuggable=1 \
+#    service.adb.enable=1 \
+#    sys.usb.config=adb,mtp
 
 # USB功能（已修复MTP冲突）
 TW_INCLUDE_USB := true
