@@ -33,10 +33,6 @@ BOARD_AVB_RECOVERY_ROLLBACK_INDEX_LOCATION := 1
 ###########################################################################
 # 预编译内核配置（✅ 必须从你自己的boot.img提取偏移量！）
 ###########################################################################
-TARGET_PREBUILT_KERNEL := device/Readboy/msm8998/kernel
-TARGET_NO_KERNEL := false
-BOARD_KERNEL_IMAGE_NAME := kernel
-BOARD_INCLUDE_DTB_IN_BOOTIMG := true
 # 1. 预编译内核 + 单独DTB 路径（必须和你文件实际位置一致）
 TARGET_PREBUILT_KERNEL := device/Readboy/msm8998/kernel
 TARGET_PREBUILT_DTB := device/Readboy/msm8998/kernel_dtb
