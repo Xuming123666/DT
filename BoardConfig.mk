@@ -30,6 +30,9 @@ BOARD_AVB_RECOVERY_ALGORITHM := SHA256_RSA2048
 BOARD_AVB_RECOVERY_ROLLBACK_INDEX := 1
 BOARD_AVB_RECOVERY_ROLLBACK_INDEX_LOCATION := 1
 
+# 定义boot分区大小（msm8998设备通用64MB，足够放下TWRP）
+BOARD_BOOTIMAGE_PARTITION_SIZE := 67108864
+
 ###########################################################################
 # 预编译内核配置（✅ 必须从你自己的boot.img提取偏移量！）
 ###########################################################################
