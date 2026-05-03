@@ -92,13 +92,11 @@ TW_HAS_NO_REAL_PARTITIONS := false
 ###########################################################################
 # Android 10 FBE加密解密（✅ 已修复，必须匹配安全补丁日期）
 ###########################################################################
-TW_INCLUDE_CRYPTO := true
-TW_INCLUDE_CRYPTO_FBE := true
-TW_INCLUDE_FBE_LEGACY := true
-TW_SUPPORT_LEGACY_DECRYPTION := true
-TW_CRYPTO_USE_SYSTEM_VOLD := true
-# ✅ 必须修改：和你手机"设置-关于手机-安全补丁级别"日期完全一致
-PLATFORM_SECURITY_PATCH := 2019-09-05
+TW_INCLUDE_CRYPTO := false
+TW_INCLUDE_CRYPTO_FBE := false
+TW_INCLUDE_FBE_LEGACY := false
+TW_SUPPORT_LEGACY_DECRYPTION := false
+TW_CRYPTO_USE_SYSTEM_VOLD := false
 
 ###########################################################################
 # 其他实用功能
