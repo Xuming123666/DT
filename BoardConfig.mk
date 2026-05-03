@@ -37,6 +37,18 @@ TARGET_PREBUILT_KERNEL := device/Readboy/msm8998/kernel
 TARGET_NO_KERNEL := false
 BOARD_KERNEL_IMAGE_NAME := kernel
 BOARD_INCLUDE_DTB_IN_BOOTIMG := true
+# 1. 预编译内核 + 单独DTB 路径（必须和你文件实际位置一致）
+TARGET_PREBUILT_KERNEL := device/Readboy/msm8998/kernel
+TARGET_PREBUILT_DTB := device/Readboy/msm8998/kernel_dtb
+
+# 2. 告诉构建系统DTB是单独的，不用从内核里找
+BOARD_KERNEL_SEPARATED_DT := true
+TARGET_NO_DTB := false
+
+# 3. 彻底禁用内核源码编译
+TARGET_KERNEL_SOURCE :=
+TARGET_KERNEL_CONFIG :=
+TARGET_NO_KERNEL := false
 
 # ⚠️ 以下5个参数必须用你自己boot.img的实际值！用AIK解包boot.img后看split_img文件夹里的txt文件
 BOARD_KERNEL_BASE := 0x80000000        # 从kernel_offset.txt提取
