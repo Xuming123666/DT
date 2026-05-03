@@ -68,6 +68,8 @@ BOARD_MKBOOTIMG_ARGS += --base 0x80000000
  BOARD_USES_PRODUCT_SERVICES := false
 # 8. 使用原生安卓10的fstab文件
  TARGET_RECOVERY_FSTAB := device/Readboy/msm8998/fstab.ab
+
+ BOARD_RECOVERY_FSTAB_LOCATION := /etc
  # 9. 显示相关配置（避免花屏）
  TARGET_RECOVERY_PIXEL_FORMAT := "BGRA_8888"  # 🟡 优化：骁龙835标准格式
  TW_THEME := portrait_hdpi  # 🟡 优化：1080P竖屏主题
