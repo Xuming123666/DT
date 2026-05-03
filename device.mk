@@ -2,9 +2,8 @@
 # Licensed under the Apache License, Version 2.0
 #
 
-# 继承顺序不能改：先基础系统，再QCOM通用，最后本设备
-$(call inherit-product, $(SRC_TARGET_DIR)/product/base.mk)
-$(call inherit-product, device/qcom/common/common.mk)
+# 唯一必需的继承：TWRP官方通用配置
+$(call inherit-product, vendor/twrp/config/common.mk)
 
 # 设备文件复制（路径必须和你设备树完全一致，大小写敏感）
 PRODUCT_COPY_FILES += \
@@ -18,4 +17,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.product.device=msm8998 \
     ro.product.manufacturer=Readboy \
     ro.product.model=C30 \
-    ro.twrp.build.type=unofficial
+    ro.twrp.build.type=unofficial \
+    # AB分区核心属性（这是最关键的新增部分）
+    ro.build.ab_update=true \
+    ro.boot.slot_suffix=_a \
+    ro.twrp.ab_device=true \
+    ro.twrp.allow_ab_backup=true \
+    ro.twrp.allow_ab_flash=true
