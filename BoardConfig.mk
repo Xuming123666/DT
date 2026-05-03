@@ -39,7 +39,7 @@ BOARD_BOOTIMAGE_PARTITION_SIZE := 67108864
 # 1. 预编译内核 + 单独DTB 路径（必须和你文件实际位置一致）
 TARGET_PREBUILT_KERNEL := device/Readboy/msm8998/kernel
 TARGET_PREBUILT_DTB := device/Readboy/msm8998/kernel_dtb
-BOARD_PREBUILT_DTBIMAGE_DIR := device/Readboy/msm8998
+BOARD_INCLUDE_DTB_IN_BOOTIMG := false
 
 # 2. 告诉构建系统DTB是单独的，不用从内核里找
 BOARD_KERNEL_SEPARATED_DTB := true
