@@ -18,9 +18,14 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.product.manufacturer=Readboy \
     ro.product.model=C30 \
     ro.twrp.build.type=unofficial \
-    # AB分区核心属性（这是最关键的新增部分）
     ro.build.ab_update=true \
     ro.boot.slot_suffix=_a \
     ro.twrp.ab_device=true \
     ro.twrp.allow_ab_backup=true \
-    ro.twrp.allow_ab_flash=true
+    ro.twrp.allow_ab_flash=true \
+    ro.adb.secure=0 \
+    ro.secure=0 \
+    ro.debuggable=1 \
+    service.adb.enable=1 \
+    sys.usb.config=adb,mtp
+
