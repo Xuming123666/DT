@@ -39,9 +39,10 @@ BOARD_BOOTIMAGE_PARTITION_SIZE := 67108864
 # 1. 预编译内核 + 单独DTB 路径（必须和你文件实际位置一致）
 TARGET_PREBUILT_KERNEL := device/Readboy/msm8998/kernel
 TARGET_PREBUILT_DTB := device/Readboy/msm8998/kernel_dtb
+BOARD_PREBUILT_DTBIMAGE_DIR := device/Readboy/msm8998
 
 # 2. 告诉构建系统DTB是单独的，不用从内核里找
-BOARD_KERNEL_SEPARATED_DT := true
+BOARD_KERNEL_SEPARATED_DTB := true
 TARGET_NO_DTB := false
 
 # 3. 彻底禁用内核源码编译
@@ -49,12 +50,36 @@ TARGET_KERNEL_SOURCE :=
 TARGET_KERNEL_CONFIG :=
 TARGET_NO_KERNEL := false
 
-# ⚠️ 以下5个参数必须用你自己boot.img的实际值！用AIK解包boot.img后看split_img文件夹里的txt文件
-BOARD_KERNEL_BASE := 0x80000000        # 从kernel_offset.txt提取
-BOARD_KERNEL_PAGESIZE := 4096          # 从pagesize.txt提取
-BOARD_KERNEL_OFFSET := 0x00008000      # 从kernel_offset.txt提取
-BOARD_RAMDISK_OFFSET := 0x01000000     # 从ramdisk_offset.txt提取
-BOARD_TAGS_OFFSET := 0x00000100        # 从tags_offset.txt提取
+BOARD_MKBOOTIMG_ARGS += --base 0x80000000
+ BOARD_MKBOOTIMG_ARGS += --kernel_offset 0x00008000
+ BOARD_MKBOOTIMG_ARGS += --ramdisk_offset 0x01000000
+ BOARD_MKBOOTIMG_ARGS += --tags_offset 0x00000100
+ BOARD_MKBOOTIMG_ARGS += --dtb_offset 0x03000000
+ BOARD_MKBOOTIMG_ARGS += --pagesize 4096
+ BOARD_MKBOOTIMG_ARGS += --dtb $(TARGET_PREBUILT_DTB)
+ BOARD_MKBOOTIMG_ARGS += --second 0  # 🟡 优化：明确没有second stage
+ # 5. 强制使用原生完整cmdline（一个字符都不能改）
+ BOARD_MKBOOTIMG_ARGS += --cmdline "console=ttyMSM0,115200,n8 androidboot.console=ttyMSM0 earlycon=msm_serial_dm,0xc1b0000 androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x37 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 sched_enable_hmp=1 sched_enable_power_aware=1 service_locator.enable=1 swiotlb=2048 androidboot.configfs=true androidboot.usbcontroller=a800000.dwc3 loop.max_part=7 buildvariant=user veritykeyid=id:7e4333f9bba00adfe0ede979e28ed1920492b40f"
+ # 6. 跨版本专用参数（安卓10固件+TWRP 11必须这么设）
+ BOARD_MKBOOTIMG_ARGS += --os_version 11.0.0
+ BOARD_MKBOOTIMG_ARGS += --os_patch_level 2021-01-05
+ BOARD_MKBOOTIMG_ARGS += --veritykeyid 7e4333f9bba00adfe0ede979e28ed1920492b40f
+ # 7. 禁用安卓11+才有的分区
+ BOARD_HAS_SYSTEM_EXT := false
+ BOARD_HAS_PRODUCT := false
+ BOARD_USES_PRODUCT_SERVICES := false
+# 8. 使用原生安卓10的fstab文件
+ TARGET_RECOVERY_FSTAB := device/Readboy/msm8998/fstab.ab
+ # 9. 显示相关配置（避免花屏）
+ TARGET_RECOVERY_PIXEL_FORMAT := "BGRA_8888"  # 🟡 优化：骁龙835标准格式
+ TW_THEME := portrait_hdpi  # 🟡 优化：1080P竖屏主题
+ # 10. 彻底禁用构建系统自动追加任何参数
+ BOARD_KERNEL_CMDLINE :=
+ BOARD_KERNEL_BASE :=
+ BOARD_RAMDISK_OFFSET :=
+ BOARD_TAGS_OFFSET :=
+ BOARD_DTB_OFFSET :=
+ BOARD_PAGE_SIZE :=
 
 ###########################################################################
 # ADB与USB全功能配置（已修复自动开启问题）
