@@ -2,22 +2,23 @@
 # Copyright (C) 2026 TeamWin Recovery Project
 # Licensed under the Apache License, Version 2.0
 #
-
 # 解决64位设备32位应用编译错误
 TARGET_SUPPORTS_64_BIT_APPS := true
-
 ###########################################################################
 # 基础平台配置（msm8998专属，绝对不能改）
 ###########################################################################
 TARGET_ARCH := arm64
 TARGET_ARCH_VARIANT := armv8-a
 TARGET_CPU_ABI := arm64-v8a
-TARGET_CPU_VARIANT := generic
+TARGET_CPU_VARIANT := cortex-a73
 TARGET_2ND_ARCH := arm
 TARGET_2ND_ARCH_VARIANT := armv7-a-neon
 TARGET_2ND_CPU_ABI := armeabi-v7a
-TARGET_2ND_CPU_VARIANT := generic
+TARGET_2ND_CPU_VARIANT := cortex-a73
 TARGET_BOARD_PLATFORM := msm8998
+# 骁龙835通用修复
+TARGET_USES_QCOM_BSP := true
+TARGET_RECOVERY_QCOM_RTC_FIX := true
 ###########################################################################
 # 原生AB分区核心配置（你的设备专属，绝对不能改）
 ###########################################################################
@@ -27,10 +28,6 @@ BOARD_BUILD_SYSTEM_ROOT_IMAGE := true
 TARGET_COPY_OUT_VENDOR := vendor
 ENABLE_VIRTUAL_AB := false
 BOARD_AVB_ENABLE := false
-BOARD_AVB_RECOVERY_KEY_PATH := external/avb/test/data/testkey_rsa2048.pem
-BOARD_AVB_RECOVERY_ALGORITHM := SHA256_RSA2048
-BOARD_AVB_RECOVERY_ROLLBACK_INDEX := 1
-BOARD_AVB_RECOVERY_ROLLBACK_INDEX_LOCATION := 1
 BOARD_BOOTIMAGE_PARTITION_SIZE := 67108864
 ###########################################################################
 # 预编译内核配置（✅ 已修正DTB矛盾）
@@ -41,7 +38,6 @@ TARGET_NO_DTB := false
 TARGET_KERNEL_SOURCE :=
 TARGET_KERNEL_CONFIG :=
 TARGET_NO_KERNEL := false
-
 BOARD_MKBOOTIMG_ARGS += --base 0x80000000
 BOARD_MKBOOTIMG_ARGS += --kernel_offset 0x00008000
 BOARD_MKBOOTIMG_ARGS += --ramdisk_offset 0x01000000
@@ -49,28 +45,21 @@ BOARD_MKBOOTIMG_ARGS += --tags_offset 0x00000100
 BOARD_MKBOOTIMG_ARGS += --dtb_offset 0x03000000
 BOARD_MKBOOTIMG_ARGS += --pagesize 4096
 BOARD_MKBOOTIMG_ARGS += --dtb device/Readboy/msm8998/kernel_dtb
-
 # 强制使用原生完整cmdline（一个字符都不能改）
-BOARD_MKBOOTIMG_ARGS += --cmdline "console=ttyMSM0,115200,n8 androidboot.console=ttyMSM0 earlycon=msm_serial_dm,0xc1b0000 androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x37 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 sched_enable_hmp=1 sched_enable_power_aware=1 service_locator.enable=1 swiotlb=2048 androidboot.configfs=true androidboot.usbcontroller=a800000.dwc3 loop.max_part=7 buildvariant=user veritykeyid=id:7e4333f9bba00adfe0ede979e28ed1920492b40f"
-
-# 跨版本参数（安卓10固件+TWRP 12.1）
+BOARD_MKBOOTIMG_ARGS += --cmdline "console=ttyMSM0,115200,n8 androidboot.console=ttyMSM0 earlycon=msm_serial_dm,0xc1b0000 androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x37 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 sched_enable_hmp=1 sched_enable_power_aware=1 service_locator.enable=1 swiotlb=2048 androidboot.configfs=true androidboot.usbcontroller=a800000.dwc3 loop.max_part=7 buildvariant=user"
+# 跨版本参数（安卓10固件+TWRP 12.1，必须保留11.0.0否则无法启动）
 BOARD_MKBOOTIMG_ARGS += --os_version 11.0.0
 BOARD_MKBOOTIMG_ARGS += --os_patch_level 2021-01-05
-BOARD_MKBOOTIMG_ARGS += --veritykeyid 7e4333f9bba00adfe0ede979e28ed1920492b40f
-
 # 禁用安卓11+才有的分区
 BOARD_HAS_SYSTEM_EXT := false
 BOARD_HAS_PRODUCT := false
 BOARD_USES_PRODUCT_SERVICES := false
-
 # fstab配置
 TARGET_RECOVERY_FSTAB := device/Readboy/msm8998/fstab.ab
 BOARD_RECOVERY_FSTAB_LOCATION := /etc
-
 # 显示相关配置（避免花屏）
 TARGET_RECOVERY_PIXEL_FORMAT := "BGRA_8888"
 TW_THEME := portrait_hdpi
-
 # 彻底禁用构建系统自动追加任何参数
 BOARD_KERNEL_CMDLINE :=
 BOARD_KERNEL_BASE :=
@@ -93,6 +82,8 @@ TW_NO_EXFAT_FUSE := false
 ###########################################################################
 # TWRP核心功能配置
 ###########################################################################
+# 移除无用的TWRP APP，减小镜像体积
+TW_EXCLUDE_TWRPAPP := true
 TW_NO_SCREEN_BLANK := true
 TW_USE_TOOLBOX := true
 TW_INCLUDE_BASH := true
@@ -102,7 +93,6 @@ TW_INCLUDE_ZIP := true
 TW_INCLUDE_GZIP := true
 TW_INCLUDE_XZ := true
 BOARD_HAS_NO_SELECT_BUTTON := true
-
 # 备份与恢复
 TW_BACKUP_VENDOR := true
 TW_BACKUP_BOOT := true
@@ -110,7 +100,6 @@ TW_BACKUP_SYSTEM := true
 TW_BACKUP_DATA := true
 TW_BACKUP_CACHE := true
 TW_BACKUP_MODEM := true
-
 # 分区操作
 TW_INCLUDE_FORMAT_DATA := true
 TW_INCLUDE_WIPE_CACHE := true
