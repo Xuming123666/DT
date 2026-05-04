@@ -49,7 +49,6 @@ BOARD_MKBOOTIMG_ARGS += --tags_offset 0x00000100
 BOARD_MKBOOTIMG_ARGS += --dtb_offset 0x03000000
 BOARD_MKBOOTIMG_ARGS += --pagesize 4096
 BOARD_MKBOOTIMG_ARGS += --dtb device/Readboy/msm8998/kernel_dtb
-BOARD_MKBOOTIMG_ARGS += --second 0
 
 # 强制使用原生完整cmdline（一个字符都不能改）
 BOARD_MKBOOTIMG_ARGS += --cmdline "console=ttyMSM0,115200,n8 androidboot.console=ttyMSM0 earlycon=msm_serial_dm,0xc1b0000 androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x37 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 sched_enable_hmp=1 sched_enable_power_aware=1 service_locator.enable=1 swiotlb=2048 androidboot.configfs=true androidboot.usbcontroller=a800000.dwc3 loop.max_part=7 buildvariant=user veritykeyid=id:7e4333f9bba00adfe0ede979e28ed1920492b40f"
