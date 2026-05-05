@@ -54,9 +54,6 @@ BOARD_MKBOOTIMG_ARGS += --os_patch_level 2021-01-05
 BOARD_HAS_SYSTEM_EXT := false
 BOARD_HAS_PRODUCT := false
 BOARD_USES_PRODUCT_SERVICES := false
-# fstab配置
-TARGET_RECOVERY_FSTAB := device/Readboy/msm8998/fstab.ab
-BOARD_RECOVERY_FSTAB_LOCATION := /etc
 # 显示相关配置（避免花屏）
 TARGET_RECOVERY_PIXEL_FORMAT := "BGRA_8888"
 TW_THEME := portrait_hdpi
