@@ -24,7 +24,8 @@ TARGET_RECOVERY_QCOM_RTC_FIX := true
 ###########################################################################
 BOARD_USES_RECOVERY_AS_BOOT := true
 TARGET_NO_RECOVERY := true
-BOARD_BUILD_SYSTEM_ROOT_IMAGE := true
+BOARD_BUILD_SYSTEM_ROOT_IMAGE := false
+BOARD_HAS_NO_RECOVERY_PARTITION := true
 TARGET_COPY_OUT_VENDOR := vendor
 ENABLE_VIRTUAL_AB := false
 BOARD_AVB_ENABLE := false
@@ -33,7 +34,6 @@ BOARD_BOOTIMAGE_PARTITION_SIZE := 67108864
 # 预编译内核配置（✅ 已修正DTB矛盾）
 ###########################################################################
 TARGET_PREBUILT_KERNEL := device/Readboy/msm8998/kernel
-BOARD_KERNEL_SEPARATED_DTB := true
 TARGET_NO_DTB := false
 TARGET_KERNEL_SOURCE :=
 TARGET_KERNEL_CONFIG :=
