@@ -12,9 +12,9 @@ TARGET_ARCH_VARIANT := armv8-a
 TARGET_CPU_ABI := arm64-v8a
 TARGET_CPU_VARIANT := cortex-a73
 TARGET_2ND_ARCH := arm
-TARGET_2ND_ARCH_VARIANT := armv8-a
+TARGET_2ND_ARCH_VARIANT := armv7-a-neon
 TARGET_2ND_CPU_ABI := armeabi-v7a
-TARGET_2ND_CPU_VARIANT := armv8-a
+TARGET_2ND_CPU_VARIANT := cortex-a73
 TARGET_BOARD_PLATFORM := msm8998
 # 骁龙835通用修复
 TARGET_USES_QCOM_BSP := true
@@ -22,18 +22,18 @@ TARGET_RECOVERY_QCOM_RTC_FIX := true
 ###########################################################################
 # 原生AB分区核心配置（你的设备专属，绝对不能改）
 ###########################################################################
-BOARD_USES_RECOVERY_AS_BOOT := true
-TARGET_NO_RECOVERY := true
+BOARD_USES_RECOVERY_AS_BOOT := false
+TARGET_NO_RECOVERY := false
 BOARD_BUILD_SYSTEM_ROOT_IMAGE := false
-BOARD_HAS_NO_RECOVERY_PARTITION := true
 TARGET_COPY_OUT_VENDOR := vendor
 ENABLE_VIRTUAL_AB := false
 BOARD_AVB_ENABLE := false
-BOARD_BOOTIMAGE_PARTITION_SIZE := 67108864
+BOARD_RECOVERYIMAGE_PARTITION_SIZE := 67108864
 ###########################################################################
 # 预编译内核配置（✅ 已修正DTB矛盾）
 ###########################################################################
 TARGET_PREBUILT_KERNEL := device/Readboy/msm8998/kernel
+BOARD_KERNEL_SEPARATED_DTB := true
 TARGET_NO_DTB := false
 TARGET_KERNEL_SOURCE :=
 TARGET_KERNEL_CONFIG :=
@@ -54,6 +54,9 @@ BOARD_MKBOOTIMG_ARGS += --os_patch_level 2021-01-05
 BOARD_HAS_SYSTEM_EXT := false
 BOARD_HAS_PRODUCT := false
 BOARD_USES_PRODUCT_SERVICES := false
+# fstab配置
+TARGET_RECOVERY_FSTAB := device/Readboy/msm8998/fstab.ab
+BOARD_RECOVERY_FSTAB_LOCATION := /etc
 # 显示相关配置（避免花屏）
 TARGET_RECOVERY_PIXEL_FORMAT := "BGRA_8888"
 TW_THEME := portrait_hdpi
