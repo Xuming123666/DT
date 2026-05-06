@@ -1,0 +1,6 @@
+/system       ext4    /dev/block/bootdevice/by-name/system      flags=backup=1;display="System"
+/vendor       ext4    /dev/block/bootdevice/by-name/vendor      flags=backup=1;display="Vendor"
+/data         ext4    /dev/block/bootdevice/by-name/userdata    flags=encryptable=footer;backup=1;display="Data"
+/boot         emmc    /dev/block/bootdevice/by-name/boot        flags=backup=1;display="Boot"
+/misc         emmc    /dev/block/bootdevice/by-name/misc        flags=display="Misc"
+/sdcard       vfat    /dev/block/mmcblk0p1                      flags=removable;storage;display="MicroSD"
