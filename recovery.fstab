@@ -1,9 +1,11 @@
 # TWRP recovery.fstab for msm8998 A/B
-# 注意：这是TWRP专用格式，不是标准Android fstab格式！
+# 根据原厂 boot.img 中的分区信息校准
 
 /system       ext4    /dev/block/bootdevice/by-name/system      flags=backup=1;display="System"
 /vendor       ext4    /dev/block/bootdevice/by-name/vendor      flags=backup=1;display="Vendor"
 /data         ext4    /dev/block/bootdevice/by-name/userdata    flags=encryptable=footer;backup=1;display="Data"
 /boot         emmc    /dev/block/bootdevice/by-name/boot        flags=backup=1;display="Boot"
 /misc         emmc    /dev/block/bootdevice/by-name/misc        flags=display="Misc"
-/persist      ext4    /dev/block/bootdevice/by-name/persist     flags=display="Persist"
+
+# 外置存储卡 (从原厂 recovery.fstab 验证的路径)
+/sdcard       vfat    /dev/block/mmcblk0p1                      flags=removable;storage;display="MicroSD"
